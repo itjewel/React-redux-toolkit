@@ -4,34 +4,41 @@
 // subscribe() store connect to view
 const { createStore } = require("redux")
 // defining constants
-const ADD_USER = "ADD_USER";
-
+const INCREMENT = "INCREMENT";
+const DECREMENT = "DECREMENT";
 
 
 // state
 initialState = {
-    user: ["jewel"],
-    count: 1,
+    count: 0,
 }
 
 // action -object- type
-const incrementUser = (value) => {
+const incrementCounter = () => {
     return {
-        type: ADD_USER,
-        payload: value,
+        type: INCREMENT
     };
 }
 
-
+const decrementCounter = () => {
+    return {
+        type: DECREMENT
+    };
+}
 
 // reducer 
 
 const counterReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_USER:
+        case INCREMENT:
             return {
-                user: [...state.user, action.payload],
+                ...state,
                 count: state.count + 1,
+            }
+        case DECREMENT:
+            return {
+                ...state,
+                count: state.count - 1,
             }
 
         default:
@@ -45,9 +52,9 @@ store.subscribe(() => {
     console.log(store.getState())
 })
 
-
-store.dispatch(incrementUser("nadim"));
-store.dispatch(incrementUser("alian"));
-store.dispatch(incrementUser("saddam"));
+store.dispatch(incrementCounter());
+store.dispatch(incrementCounter());
+store.dispatch(incrementCounter());
+store.dispatch(decrementCounter());
 
 // run node index.js
